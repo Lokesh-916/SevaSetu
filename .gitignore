@@ -1,0 +1,48 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+.venv/
+venv/
+env/
+.env
+!backend/.env.example
+
+# ── SQLite databases ──────────────────────────────────────────────────────────
+*.db
+*.sqlite3
+
+# ── Hypothesis test database ──────────────────────────────────────────────────
+.hypothesis/
+backend/.hypothesis/
+
+# ── Testing / coverage ────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ── Alembic ───────────────────────────────────────────────────────────────────
+# Keep migrations tracked; ignore only the generated cache
+backend/alembic/__pycache__/
+
+# ── Node / React ──────────────────────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+!frontend/.env.example
+
+# ── IDE / OS ──────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
