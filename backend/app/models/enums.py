@@ -21,6 +21,21 @@ class DocumentType(str, enum.Enum):
     OTHER = "other"
 
 
+class UserRole(str, enum.Enum):
+    USER = "user"
+    ADMIN = "admin"
+
+
+class ActionType(str, enum.Enum):
+    VIEW = "view"
+    CREATE = "create"
+    UPDATE = "update"
+    DELETE = "delete"
+    LOGIN = "login"
+    LOGOUT = "logout"
+    DOWNLOAD = "download"
+
+
 class ValidationIssueType(str, enum.Enum):
     MISSING_FIELD = "missing_field"
     FORMAT_ERROR = "format_error"

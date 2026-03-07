@@ -13,26 +13,24 @@ dist/
 .venv/
 venv/
 env/
+
+# ── Environment files ─────────────────────────────────────────────────────────
 .env
 !backend/.env.example
+!frontend/.env.example
 
 # ── SQLite databases ──────────────────────────────────────────────────────────
 *.db
 *.sqlite3
 
-# ── Hypothesis test database ──────────────────────────────────────────────────
-.hypothesis/
-backend/.hypothesis/
+# ── ChromaDB / vector store ───────────────────────────────────────────────────
+chroma_db/
+chroma_db_test/
 
-# ── Testing / coverage ────────────────────────────────────────────────────────
-.pytest_cache/
-.coverage
-htmlcov/
-coverage.xml
-
-# ── Alembic ───────────────────────────────────────────────────────────────────
-# Keep migrations tracked; ignore only the generated cache
-backend/alembic/__pycache__/
+# ── Scratch / output files ────────────────────────────────────────────────────
+*.txt
+!README.md
+!backend/SevaSetu_knowledge_base.txt
 
 # ── Node / React ──────────────────────────────────────────────────────────────
 node_modules/
@@ -46,3 +44,6 @@ frontend/.env
 .vscode/
 *.DS_Store
 Thumbs.db
+
+# Hypothesis test database
+.hypothesis/

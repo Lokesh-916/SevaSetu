@@ -1,0 +1,379 @@
+=== FORM START ===
+Form Name: Income Certificate
+Department: Revenue Department
+Processing Time: 7 to 15 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+The Income Certificate verifies the annual family income for welfare schemes and scholarships.
+Procedure:
+1. Citizen submits application with proof of income.
+2. VRO (Village Revenue Officer) performs field verification of assets and family size.
+3. RI (Revenue Inspector) cross-checks with the VRO report and CFMS/Ration Card databases.
+4. Tahsildar (MRO) grants approval based on the verification report.
+
+--- Required Documents ---
+- Application Form (signed)
+- Ration Card / EPIC Card / Aadhaar Card
+- Copy of IT Returns / Pay Slips (for employees)
+- Self-Declaration from the applicant
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Gross Annual Income: Must include income from all sources (Salary, Business, Agriculture).
+- Family Members: Ensure all members listed in the Ration Card are included.
+
+--- Common Rejection Reasons & Mistakes ---
+- Income Mismatch: Declared income is lower than what is reflected in the 26AS (Income Tax) or electricity bill (high consumption suggests higher income).
+- Asset Concealment: Failure to declare agricultural land or urban property owned by family members.
+
+--- User Grievances & Usual Practices ---
+- Grievance: High electricity bill consumption being used as a proxy for high income.
+- Tip: If your electricity bill is high due to a shared meter, provide a letter from the landlord or a sub-meter reading to the VRO.
+
+--- Technical Rules & Administrative Logic ---
+- **G.O. Ms. No. 186 (2018) Logic**: Income from agricultural sources is calculated based on the 'Standard Acre' yield rates fixed by the District Collector for that crop year.
+- **Exclusion Rule**: Non-taxable pensions (like old-age or disability pensions) are generally excluded from 'Gross Annual Income' for scholarship eligibility.
+- **Validity Rule**: Per G.O. Ms. No. 484 (2023), Income Certificates for students are valid for one year, but for other purposes, they may be required every 6 months.
+- **Verification Threshold**: If the applicant's family owns more than 2.5 acres of wet land or 5 acres of dry land, they are often automatically disqualified from 'Below Poverty Line' (BPL) income status regardless of declared cash income.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Integrated Certificate (Caste-Nativity-Date of Birth)
+Department: Revenue Department
+Processing Time: 15 to 30 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Combines proof of Caste, Nativity, and DOB into a single permanent document.
+Procedure:
+1. Submission of historical caste evidence.
+2. VRO/RI verification of the applicant's community and traditional occupation.
+3. Inquiry by the District Level Scrutiny Committee (DLSC) for disputed SC/ST claims.
+4. Digital issuance by the Tahsildar.
+
+--- Required Documents ---
+- Application Form
+- Caste Certificate issued to family members (Father/Siblings)
+- SSC Marks Memo / DOB Extract / Transfer Certificate
+- 1st to 10th Study Certificates (for Nativity proof)
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Sub-Caste Name: Must match the official list in the AP Gazette (e.g., 'Mala', 'Madiga', 'Kapu').
+- Place of Birth: Must match the school records exactly.
+
+--- Common Rejection Reasons & Mistakes ---
+- Insufficient Proof: Providing only a self-declaration without any family caste records.
+- Inter-Caste Marriage Issues: Children of inter-caste marriages must provide proof of which community they were 'brought up' in.
+
+--- User Grievances & Usual Practices ---
+- Grievance: Officials asking for '1950 records' for SC/ST applicants.
+- Tip: If 1950 records are unavailable, provide land records or old school registers of ancestors that mention the caste.
+
+--- Technical Rules & Administrative Logic ---
+- **Rule 58 of 1997 (AP SC/ST/BC Rules)**: The burden of proof for the caste claim lies entirely with the applicant. The VRO must conduct a 'local inquiry' which includes interviewing neighbors from the same community.
+- **Nativity Logic**: Nativity is determined by the 'Local Candidate' rule—where the applicant studied for the maximum period during the 7 consecutive years ending with the year of the qualifying exam.
+- **Permanent Validity**: Per G.O. Ms. No. 26 (2015), once an Integrated Certificate is issued, it is a **permanent document** and does not need to be renewed unless the original is lost or a correction is needed.
+- **Adoption Rule**: A child's caste is determined by the biological parents, not the adoptive parents, unless the adoption is legally registered and the child was fully integrated into the new community from an early age.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Residence Certificate
+Department: Revenue Department
+Processing Time: 7 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Proves residence in a specific area for a defined period.
+Procedure:
+1. Application with address proofs.
+2. VRO verifies physical stay through local inquiry and utility bills.
+3. Tahsildar approves the certificate.
+
+--- Required Documents ---
+- Application Form
+- Ration Card / Aadhaar Card
+- House Tax receipt / Electricity Bill
+- Photo (for Passport purpose)
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Duration of Stay: 'From' and 'To' dates must be continuous.
+- Purpose: Clearly state if it is for 'Passport', 'General', or 'Education'.
+
+--- Common Rejection Reasons & Mistakes ---
+- Gap in Residence: Inability to prove stay for the entire period claimed.
+- Name Mismatch: Utility bills are in the name of a previous owner or landlord without a rental agreement.
+
+--- User Grievances & Usual Practices ---
+- Grievance: Tenants face issues if the landlord refuses to provide the property tax receipt.
+- Tip: A registered lease agreement plus a bank passbook with the current address is usually sufficient.
+
+--- Technical Rules & Administrative Logic ---
+- **Standard Proof Rule**: For 'General' residence, a minimum stay of 6 months is required. For 'Passport' purposes, the verification is stricter and often involves police coordination.
+- **Continuous Stay Logic**: If an applicant has moved within the same Mandal, the VRO can verify multiple addresses. If they moved from a different Mandal, separate certificates may be required for each period.
+- **Dependency Rule**: Minor children's residence is automatically tied to the father's/guardian's residence proof.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Family Member Certificate
+Department: Revenue Department
+Processing Time: 15 to 30 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Identifies legal survivors of a deceased person for administrative purposes.
+Procedure:
+1. Application by a family member.
+2. VRO local inquiry and 'Panchanama' (statement by 5 witnesses).
+3. 15-day notice period for public objections.
+4. Tahsildar issuance.
+
+--- Required Documents ---
+- Death Certificate of the deceased
+- Aadhaar Cards of all family members
+- Notarized Affidavit listing all members
+
+--- Critical Fields & Auto-Fill Warnings ---
+- All Names: Ensure no family member (even married daughters) is omitted.
+- Age of Members: Must match Aadhaar exactly.
+
+--- Common Rejection Reasons & Mistakes ---
+- Concealment: Deliberately omitting a second wife or children from a first marriage.
+- Name Spelling: Differences between the Death Certificate and Aadhaar cards of survivors.
+
+--- User Grievances & Usual Practices ---
+- Grievance: VROs demanding a 'No Objection Certificate' (NOC) from all members.
+- Tip: Get all members to sign the affidavit together to avoid multiple visits.
+
+--- Technical Rules & Administrative Logic ---
+- **G.O. Ms. No. 145 (2015)**: Tahsildars are authorized to issue Family Member Certificates only for 'Service Benefits' (pensions, jobs on compassionate grounds) and not for 'Property Disputes'.
+- **Property Limitation**: For property inheritance exceeding a certain value, officials will direct the applicant to a Civil Court for a 'Legal Heir Certificate' or 'Succession Certificate'.
+- **Witness Rule**: The 'Panchanama' must include at least two non-relatives who knew the deceased for over 10 years.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Birth Certificate (Corrections/Registration)
+Department: Municipal Administration / Panchayat Raj
+Processing Time: 15 to 20 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Registers a birth or corrects errors in the birth record.
+Procedure:
+1. Submission of hospital/school records.
+2. Verification by the Health Assistant or Panchayat Secretary.
+3. Approval by the Registrar (Municipal Commissioner or MPDO).
+
+--- Required Documents ---
+- Hospital Discharge Summary
+- SSC Marks Memo (for corrections)
+- Notarized Affidavit
+- Parents' Aadhaar Cards
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Date of Birth: Cannot be changed after the first registration without a Magistrate order.
+- Child's Name: Ensure the name is final; subsequent changes are difficult.
+
+--- Common Rejection Reasons & Mistakes ---
+- Late Registration: Trying to register after 1 year without a Magistrate order.
+- Hospital Mismatch: Application details don't match the 'Form-1' submitted by the hospital to the municipality.
+
+--- User Grievances & Usual Practices ---
+- Grievance: Name being 'Blank' in old records.
+- Tip: Use the 'Name Entry' service in Meeseva if the birth was registered but the child was not named at that time.
+
+--- Technical Rules & Administrative Logic ---
+- **Registration Act 1969 & Rules 2025**:
+  - **0-21 Days**: Free registration.
+  - **22-30 Days**: Late fee of ₹25 + permission from Registrar.
+  - **31 Days to 1 Year**: Late fee of ₹50 + written permission from Sub-Collector/RDO.
+  - **Over 1 Year**: Mandatory **Magistrate Order** (First Class Magistrate) + Late fee of ₹250.
+- **Correction Limit**: Only clerical or spelling errors can be corrected by the Registrar. Substantive changes (like changing the father's name) require a court decree.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Death Certificate (Corrections/Registration)
+Department: Municipal Administration / Panchayat Raj
+Processing Time: 15 to 20 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Official registration of a death.
+Procedure:
+1. Application with burial/hospital proof.
+2. Verification by local health/revenue officials.
+3. Registration and digital issuance.
+
+--- Required Documents ---
+- Hospital Death Summary
+- Burial/Cremation Ground Receipt
+- Deceased's Aadhaar (to be marked as 'Deceased' in database)
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Date of Death: Crucial for insurance; must match hospital records.
+- Place of Death: Specific hospital name or house address.
+
+--- Common Rejection Reasons & Mistakes ---
+- Missing Burial Proof: For home deaths, failure to get a report from the VRO/Panchayat Secretary immediately.
+- Duplicate Registration: Death already registered in a different municipality (e.g., place of death vs. place of residence).
+
+--- User Grievances & Usual Practices ---
+- Grievance: Delay in updating the online portal after physical registration.
+- Tip: Keep the 'Acknowledgement Number' from the burial ground safely.
+
+--- Technical Rules & Administrative Logic ---
+- **Missing Person Logic**: If a person is missing, they are legally presumed dead only after **7 years** of being missing, requiring a court declaration under the Indian Evidence Act.
+- **Late Registration (Over 1 Year)**: Similar to births, deaths not registered within a year require a **Magistrate Order**.
+- **Non-Availability Certificate (NAC)**: If a search in the records yields no result, the Registrar issues an NAC, which is the prerequisite for applying for late registration.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Adangal/Pahani (Land Records)
+Department: Revenue Department
+Processing Time: Immediate (Online) / 7 days (Certified)
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Provides detailed ownership and cultivation status of agricultural land.
+Procedure:
+1. Provide Survey/Khata number.
+2. System fetches data from the 'Webland' database.
+3. Tahsildar digitally signs the certified copy.
+
+--- Required Documents ---
+- Survey Number / Sub-division Number
+- Aadhaar Card of the Pattadar (Owner)
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Survey Number: Ensure the sub-division (e.g., /A, /1) is correct.
+- Nature of Land: Check if it is 'Government' (Poramboke) or 'Private' (Patta).
+
+--- Common Rejection Reasons & Mistakes ---
+- Survey Number Mismatch: Providing numbers that don't exist in that village's map.
+- Prohibited Lands: Requesting records for lands listed under Section 22-A (Prohibited for registration).
+
+--- User Grievances & Usual Practices ---
+- Grievance: Wrong name spelling in the online database.
+- Tip: Use the 'Meebhoomi' portal to check for errors and file a 'VRO Correction' request immediately.
+
+--- Technical Rules & Administrative Logic ---
+- **Section 3 of ROR Act**: The Adangal is updated annually (Fasli year). Changes in 'Cultivator' column do not imply ownership change.
+- **Column 12 (Remarks)**: This is the most critical technical column; it contains notes on court stays, bank liens (mortgages), or government disputes.
+- **Standard Acre Conversion**: Land is recorded in Acres and Cents (100 Cents = 1 Acre).
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Possession Certificate
+Department: Revenue Department
+Processing Time: 15 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Certifies physical possession of a property.
+Procedure:
+1. Application with boundary details.
+2. VRO field inspection to confirm the applicant is occupying the site.
+3. RI verification of the chain of documents.
+4. Tahsildar approval.
+
+--- Required Documents ---
+- Registered Sale Deed
+- Latest Property Tax Receipt
+- Photo of the site with the applicant
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Boundaries (N, S, E, W): Must match the Sale Deed exactly.
+- Dimensions: Length and width of the plot in feet/yards.
+
+--- Common Rejection Reasons & Mistakes ---
+- Vacant Land Issues: Difficulty in proving 'possession' of an open plot without a fence or structure.
+- Encroachment: Part of the property is on government land or a neighbor's plot.
+
+--- User Grievances & Usual Practices ---
+- Grievance: VROs refusing to issue the certificate for 'assigned' (D-Patta) lands.
+- Tip: If it's assigned land, ensure you have the 'Alienation' permission if you are a subsequent buyer.
+
+--- Technical Rules & Administrative Logic ---
+- **Physical vs. Legal Possession**: This certificate only confirms *physical* stay/hold. It does not override a court's decision on *legal* title.
+- **Inspection Rule**: The VRO must record the 'Nature of Possession' (e.g., 'Owner-occupied', 'Tenant-occupied', or 'Fenced Vacant Plot').
+- **Bank Requirement**: Most banks require this certificate to be less than 6 months old for loan processing.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: Mutation (Transfer of Property)
+Department: Revenue Department
+Processing Time: 30 to 45 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Updates the Record of Rights (ROR) after a property transfer.
+Procedure:
+1. Application after registration.
+2. Issue of Form-VIII notice to interested parties.
+3. Verification of the registered document in the 'SRO' database.
+4. Update of the 'Digi-Khata' and ROR-1B.
+
+--- Required Documents ---
+- Registered Sale/Gift/Partition Deed
+- Encumbrance Certificate (EC)
+- Death Certificate (for inheritance cases)
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Document Number/Year: Must match the SRO registration stamp.
+- Seller's Khata Number: The seller must be the 'Pattadar' in the current records.
+
+--- Common Rejection Reasons & Mistakes ---
+- Extent Mismatch: Seller trying to sell more land than they own in the revenue records.
+- Unpaid Dues: Pending agricultural loans on the land (Bank 'Lien').
+
+--- User Grievances & Usual Practices ---
+- Grievance: Mutation taking months despite 'auto-mutation' promises.
+- Tip: Check if the SRO has forwarded the 'J-Slip' to the Tahsildar; if not, provide a physical copy.
+
+--- Technical Rules & Administrative Logic ---
+- **G.O. Ms. No. 114 (2019)**: Introduced 'Auto-Mutation' for simple sale transactions. However, 'Succession' (inheritance) mutations still require a manual 15-day notice period.
+- **Section 5 of ROR Act**: Any person acquiring rights must report it within 90 days. Failure to do so may lead to penalties, though rarely enforced.
+- **Sub-division Rule**: If only a part of a survey number is sold, a 'Sub-division' (Phodi) process must be initiated, which involves a government surveyor.
+=== FORM END ===
+
+=== FORM START ===
+Form Name: EWS Certificate (Economically Weaker Section)
+Department: Revenue Department
+Processing Time: 15 to 30 days
+Submission Location: Meeseva Center or Online Portal
+
+--- Purpose and Overall Procedure ---
+Provides 10% reservation for General Category poor.
+Procedure:
+1. Application with income and asset details.
+2. VRO verification of family holdings across the district.
+3. Tahsildar approval based on state-specific criteria.
+
+--- Required Documents ---
+- Income Certificate
+- Property Tax receipts (Urban)
+- Land Adangals (Rural)
+- Self-Declaration of Assets
+
+--- Critical Fields & Auto-Fill Warnings ---
+- Family Definition: Includes parents, spouse, and siblings/children under 18.
+- Total Land: Sum of all land owned by the 'Family' anywhere in India.
+
+--- Common Rejection Reasons & Mistakes ---
+- Income Limit: Family income exceeds ₹8 Lakhs per annum.
+- Asset Limit: Owning a residential flat of 1000 sq. ft. or more in notified municipalities.
+
+--- User Grievances & Usual Practices ---
+- Grievance: Confusion between 'State EWS' and 'Central EWS' criteria.
+- Tip: Specify the purpose (Central Jobs vs. State Education) as criteria may slightly differ.
+
+--- Technical Rules & Administrative Logic ---
+- **G.O. Ms. No. 60 (2019)**:
+  - **Income Criterion**: Gross annual family income must be below ₹8 Lakh.
+  - **Asset Exclusions**:
+    - Agricultural land of 5 acres and above.
+    - Residential flat of 1000 sq. ft. and above.
+    - Residential plot of 100 sq. yards and above in notified municipalities.
+    - Residential plot of 200 sq. yards and above in areas other than notified municipalities.
+- **Calculation Logic**: If a family owns multiple small plots that *sum up* to the limit, they are disqualified.
+- **Community Exclusion**: Applicants belonging to SC, ST, or BC (as per the state list) are **not eligible** for EWS, even if they meet the income/asset criteria.
+=== FORM END ===

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: sans-serif; padding: 2cm; margin: 0; }
+        h1 { color: #333; }
+        .data-row { margin-bottom: 10px; }
+        .data-row b { display: inline-block; width: 150px; }
+        .instructions { margin-top: 30px; padding: 15px; background: #f9f9f9; border: 1px solid #ccc; }
+        .checklist { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Application Form</h1>
+    <p><strong>Form Title:</strong> {{ form_data.title }}</p>
+    <br/>
+    <h2>User Details</h2>
+    {% for field in form_data.fields %}
+    <div class="data-row">
+        <b>{{ field.label }}:</b> <span>{{ field.value }}</span>
+    </div>
+    {% endfor %}
+
+    <div class="instructions">
+        <h2>Submission Instructions</h2>
+        <p><strong>Location:</strong> {{ instructions.location }}</p>
+        <p><strong>Timing:</strong> {{ instructions.timing }}</p>
+        <p><strong>Contact:</strong> {{ instructions.contact }}</p>
+    </div>
+
+    <div class="checklist">
+        <h2>Attachment Checklist</h2>
+        <ul>
+            {% for item in checklist %}
+            <li>[ ] {{ item }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

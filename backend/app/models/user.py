@@ -15,6 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.types import JSON
 
 from app.core.database import Base
+from app.models.enums import UserRole
 
 
 def _now() -> datetime:
@@ -45,6 +46,9 @@ class UserProfile(Base):
     full_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     preferred_language: Mapped[str] = mapped_column(
         String(10), nullable=False, default="en"
+    )
+    role: Mapped[str] = mapped_column(
+        String(20), nullable=False, default=UserRole.USER
     )
     # JSON blob: {"screen_reader": bool, "large_text": bool, "high_contrast": bool}
     accessibility_needs: Mapped[dict] = mapped_column(

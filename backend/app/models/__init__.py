@@ -20,6 +20,7 @@ from app.models.form import FormSession, FormTemplate  # noqa: F401
 from app.models.office import OfficeConfig  # noqa: F401
 from app.models.receipt import AssistanceReceipt  # noqa: F401
 from app.models.user import UserAuthSession, UserProfile  # noqa: F401
+from app.models.audit import AuditLog  # noqa: F401
 
 __all__ = [
     # Enums

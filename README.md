@@ -1,105 +1,198 @@
-# SevaSetu
+<div align="center">
 
-**SevaSetu** is an AI-powered public-service pre-validation system that helps citizens complete government applications **correctly on the first attempt** by validating documents, predicting rejection risks, and generating office-ready forms *before* submission.
+<h1>🪄 SevaSetu</h1>
+<p><strong>AI-powered form assistant that stops government application rejections before they happen.</strong></p>
 
----
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=flat-square&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Python](https://img.shields.io/badge/Python-3.14-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
+[![Groq](https://img.shields.io/badge/LLM-Groq%20LLaMA%203.3-FF6B35?style=flat-square)](https://groq.com)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 
-## Problem
-
-Government applications are often rejected due to:
-- Missing or incorrect documents  
-- Office-specific rules and formatting requirements  
-- Language and literacy barriers  
-- Lack of clear pre-submission guidance  
-
-These issues lead to repeat visits, long queues, and increased administrative burden.
+</div>
 
 ---
 
-## Solution Overview
+## The Problem
 
-SevaSetu acts as an **intelligence layer before government counters**, deployed through AI kiosks or web interfaces inside offices.  
-It learns **office-specific rules and rejection patterns**, validates citizen documents in advance, and guides users through **voice-first, local-language interactions**—without replacing human officials.
+Every day, thousands of Indian citizens walk to government offices — and walk back home empty-handed.
 
----
+Forms rejected for a wrong date format. Income certificates returned because a single document was missing. Death certificates delayed because nobody told the applicant they needed a burial ground receipt *and* a VRO report. The citizen makes another trip. The queue grows longer. The officer stamps "Rejected" again.
 
-## Key Features
-
-- Detects missing, invalid, or expired documents before submission  
-- Predicts likely rejection reasons using office-specific intelligence  
-- Auto-fills official, office-approved forms from validated documents  
-- Provides a readiness score indicating submission confidence  
-- Supports human-in-the-loop escalation when uncertainty exists  
-- Remembers past attempts to prevent repeat failures  
+**SevaSetu stops this from happening.**
 
 ---
 
-## How It Solves the Problem
+## What It Does
 
-- Identifies missing or incorrect documents before submission  
-- Flags likely rejection reasons with clear voice guidance  
-- Auto-fills the correct form based on validated inputs  
-- Ensures citizens submit complete and correct applications in one visit  
-- Uses a **fine-tuned, office-specific AI model** (not a generic LLM API call) trained on local rules and past rejection patterns  
+SevaSetu is an AI assistant that sits *between the citizen and the counter* — validating documents, answering questions in the citizen's language, auto-filling forms, and predicting rejection risks **before** anyone waits in a queue.
 
----
-
-## Architecture Summary
-
-SevaSetu follows a layered, service-oriented architecture:
-- **Frontend:** Web and voice interfaces for guided citizen interaction  
-- **Backend:** APIs for form management, validation, and session handling  
-- **AI Layer:** Office-trained language models, OCR, and speech processing  
-- **Data Layer:** Secure storage for forms, rules, and audit logs  
-
-Privacy, security, and auditability are treated as **core design requirements**.
+| Feature | What It Means for a Citizen |
+|--------|---------------------------|
+| 🤖 **AI Chat Assistant** | Ask anything about a certificate in your language — documents needed, rejection reasons, tips from real grievances, government rules |
+| 📄 **Document Validation** | Upload your Aadhaar / income proof — AI checks it is legible, complete, and matches form requirements |
+| ✍️ **Auto-Fill from Docs** | Upload an ID document; AI extracts your name, DOB, address and fills the form fields automatically |
+| 🧠 **Rejection Risk Engine** | Flags likely rejection reasons *before submission* using office-specific rules and past rejection patterns |
+| 📋 **Blank Form Preview** | Download the official blank form PDF for any certificate directly |
+| 🌐 **9 Indian Languages** | Chat in English, Telugu, Hindi, Tamil, Kannada, Malayalam, Marathi, Bengali, or Gujarati |
+| 🎙️ **Voice Input** | Speak your question — browser Speech-to-Text transcribes it in the selected language |
+| 📈 **Human Escalation** | When the AI isn't sure, it creates an Assistance Receipt and flags it for a human officer |
 
 ---
 
-## Technology Stack (High Level)
+## How It Works
+
+```
+Citizen opens SevaSetu
+        │
+        ▼
+Selects a certificate (Income, Caste, Land Record, etc.)
+        │
+        ├── Ask AI → question sent to Groq LLaMA 3.3 70B
+        │            with form-specific knowledge base as context
+        │            → natural, accurate, multilingual answer
+        │
+        ├── Upload Doc → EasyOCR extracts text
+        │               → validation rules checked
+        │               → risk score generated
+        │
+        ├── Auto-Fill → OCR data mapped to form fields
+        │              → citizen reviews & confirms
+        │
+        └── Preview → official blank PDF served
+```
+
+### The AI Chat Pipeline (RAG + LLM)
+
+1. **Knowledge Base** — 9 Andhra Pradesh government certificates encoded with: required documents, step-by-step procedures, common rejection reasons, critical fields, real citizen grievances, and G.O. (Government Order) references
+2. **Retrieval** — sentence-transformers (`all-MiniLM-L6-v2`) embeds the query and retrieves the most relevant KB passages
+3. **Generation** — Groq's LLaMA 3.3 70B receives `[system: KB context] + [user: question]` and returns a grounded, conversational answer
+4. **Language** — the model responds in the citizen's detected language while keeping all numbers in English digits
+
+---
+
+## Supported Certificates
+
+| Certificate | Department | Typical Time |
+|------------|------------|-------------|
+| Income Certificate | Revenue | 7–15 days |
+| Integrated Certificate (Caste-Nativity-DOB) | Revenue | 15–30 days |
+| Residence Certificate | Revenue | 7 days |
+| Family Member Certificate | Revenue | 15–30 days |
+| Birth Certificate | Municipal / Panchayat Raj | 15–20 days |
+| Death Certificate | Municipal / Panchayat Raj | 15–20 days |
+| Adangal / Pahani (Land Records) | Revenue | Immediate–7 days |
+| Possession Certificate | Revenue | 15 days |
+| Mutation (Property Transfer) | Revenue | 30–45 days |
+| EWS Certificate | Revenue | 15–30 days |
+
+---
+
+## Tech Stack
+
+### Frontend
+- **React 18** + TypeScript with Vite
+- Vanilla CSS — dark/light dual theme, glassmorphism, micro-animations
+- Browser Web Speech API for voice input
+- Groq API called directly from the browser (no backend proxy needed for chat)
 
 ### Backend
-- Python 3.9+, FastAPI, Uvicorn  
-- PostgreSQL, SQLAlchemy, Alembic  
-- Redis for caching and session storage  
+- **FastAPI** (Python 3.14) + Uvicorn with async throughout
+- **SQLite** (dev) / PostgreSQL-ready via SQLAlchemy async
+- JWT authentication (python-jose + bcrypt)
+- Background task scheduler for data retention cleanup
 
 ### AI & ML
-- Fine-tuned LLMs (OpenAI / Hugging Face)  
-- LangChain for orchestration  
-- Vector databases (ChromaDB / Pinecone)  
-- scikit-learn for supporting models  
-
-### Document & Speech Processing
-- OCR for printed and handwritten documents  
-- Speech-to-text and text-to-speech for regional languages  
-- PDF generation for submission-ready forms  
+- **Groq** — LLaMA 3.3 70B Versatile for natural language answers
+- **sentence-transformers** — local RAG embeddings (`all-MiniLM-L6-v2`, no API cost)
+- **EasyOCR** — document text extraction (CPU, no cloud)
+- **scikit-learn** — rejection risk scoring model
+- **langdetect** — automatic language detection for routing
 
 ### Security
-- Encryption at rest and in transit  
-- Role-based access control  
-- Masked logs and minimal data exposure  
+- Fernet symmetric encryption for stored documents
+- JWT with configurable expiry
+- PII masked in structured logs
+- CORS scoped to configured origins
 
 ---
 
-## Privacy & Trust
+## Running Locally
 
-- Data is processed **only during the active application flow**  
-- Office-scoped data boundaries prevent cross-office data sharing  
-- Personally identifiable information is masked in logs  
-- No user data is used for model training without explicit authorization  
+### Prerequisites
+- Python 3.11+ and Node.js 18+
+- A free Groq API key → [console.groq.com](https://console.groq.com)
+
+### Backend
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate          # Windows
+pip install -r requirements.txt
+python seed_test_data.py       # one-time: seeds demo data
+uvicorn app.main:app --reload --port 8000
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+```
+
+Edit `frontend/.env`:
+```env
+VITE_GROQ_API_KEY=gsk_your_key_here
+```
+
+```bash
+npm run dev
+```
+
+Open **http://localhost:3000** — the backend Swagger UI is at **http://localhost:8000/docs**
+
+---
+
+## Project Structure
+
+```
+SevaSetu/
+├── backend/
+│   ├── app/
+│   │   ├── api/          # FastAPI route handlers
+│   │   ├── core/         # config, database, security, logging
+│   │   ├── models/       # SQLAlchemy ORM models
+│   │   ├── services/     # AI, document, PDF, rules logic
+│   │   └── tasks/        # background retention cleanup
+│   ├── SevaSetu_knowledge_base.txt   # structured KB for RAG
+│   └── seed_test_data.py
+└── frontend/
+    └── src/
+        ├── components/   # ChatPanel, CustomSelect, AutoFillForm …
+        ├── data/         # local knowledge base (TypeScript)
+        ├── pages/        # AppPage, LandingPage
+        └── utils/
+```
+
+---
+
+## Why the RAG + LLM Approach
+
+Generic AI chatbots hallucinate government rules. SevaSetu grounds every answer in a curated knowledge base built from actual Andhra Pradesh Government Orders (G.O. Ms.), revenue department procedures, and documented citizen grievances. The LLM's job is to *explain* the facts naturally — not to *invent* them.
+
+> Example: A query about income certificate documents retrieves the exact G.O. Ms. No. 186 (2018) clause about Standard Acre yield rates, and the LLM explains it plainly in the citizen's language.
 
 ---
 
 ## Impact
 
-By shifting validation **before** the counter, Seva Setu:
-- Reduces application rejections and repeat visits  
-- Shortens queues and processing time  
-- Improves access for first-time, non-English, and low-literacy users  
-- Enhances efficiency while preserving human decision-making  
+- ✅ Eliminates the most common reason citizens waste a trip: not knowing the complete document list
+- ✅ Explains rejection reasons in plain language *before* the officer has to say it
+- ✅ Accessible to users with low literacy through voice input in 9 languages
+- ✅ Reduces officer workload by handling repetitive document queries at scale
+- ✅ Fully auditable — human escalation path preserved for edge cases
 
 ---
 
-## Status
-
-SevaSetu is designed for **public-sector pilots, hackathons, and scalable government deployments**, with support for multiple offices, services, and regional languages.
+<div align="center">
+<sub>Built for public-sector pilots, civic hackathons, and scalable government deployments across Indian states.</sub>
+</div>

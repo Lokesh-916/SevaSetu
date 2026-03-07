@@ -37,6 +37,9 @@ AsyncSessionLocal = async_sessionmaker(
     autocommit=False,
 )
 
+# Alias so that modules using `SessionLocal` (e.g. tasks/retention.py) work without changes
+SessionLocal = AsyncSessionLocal
+
 
 # ── Declarative base (shared by all ORM models) ───────────────────────────────
 class Base(DeclarativeBase):
