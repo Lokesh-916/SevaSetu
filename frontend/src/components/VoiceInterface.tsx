@@ -1,5 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Explanation from './Explanation';
+
+// Extend Window interface for SpeechRecognition
+declare global {
+    interface Window {
+        SpeechRecognition?: any;
+        webkitSpeechRecognition?: any;
+    }
+}
 
 interface Props {
     language: string;
@@ -12,7 +20,7 @@ export default function VoiceInterface({ language }: Props) {
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
                 setSupportAudio(false);
             }

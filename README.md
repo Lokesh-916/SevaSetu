@@ -64,10 +64,11 @@ Selects a certificate (Income, Caste, Land Record, etc.)
 
 ### The AI Chat Pipeline (RAG + LLM)
 
-1. **Knowledge Base** — 9 Andhra Pradesh government certificates encoded with: required documents, step-by-step procedures, common rejection reasons, critical fields, real citizen grievances, and G.O. (Government Order) references
-2. **Retrieval** — sentence-transformers (`all-MiniLM-L6-v2`) embeds the query and retrieves the most relevant KB passages
-3. **Generation** — Groq's LLaMA 3.3 70B receives `[system: KB context] + [user: question]` and returns a grounded, conversational answer
+1. **Knowledge Base** — 10 Andhra Pradesh government certificates encoded with: required documents, step-by-step procedures, common rejection reasons, critical fields, real citizen grievances, and G.O. (Government Order) references
+2. **Retrieval** — sentence-transformers (`all-MiniLM-L6-v2`) embeds the query on the backend and retrieves the most relevant KB passages
+3. **Generation** — Groq's LLaMA 3.3 70B receives `[system: KB context] + [user: question]` on the **server** and returns a grounded, conversational answer
 4. **Language** — the model responds in the citizen's detected language while keeping all numbers in English digits
+5. **Security** — the `GROQ_API_KEY` never leaves the backend; the frontend calls `POST /api/v1/ai/public-chat` with no auth token required (open kiosk model)
 
 ---
 
@@ -94,7 +95,7 @@ Selects a certificate (Income, Caste, Land Record, etc.)
 - **React 18** + TypeScript with Vite
 - Vanilla CSS — dark/light dual theme, glassmorphism, micro-animations
 - Browser Web Speech API for voice input
-- Groq API called directly from the browser (no backend proxy needed for chat)
+- All AI calls go through the backend — **no secrets in the browser**
 
 ### Backend
 - **FastAPI** (Python 3.14) + Uvicorn with async throughout
@@ -137,18 +138,25 @@ uvicorn app.main:app --reload --port 8000
 ```bash
 cd frontend
 npm install
-```
-
-Edit `frontend/.env`:
-```env
-VITE_GROQ_API_KEY=gsk_your_key_here
-```
-
-```bash
 npm run dev
 ```
 
+The frontend has **no secrets**. It calls the backend for all AI responses.
+
 Open **http://localhost:3000** — the backend Swagger UI is at **http://localhost:8000/docs**
+
+### Docker (production)
+
+```bash
+# 1. Copy the env template and fill in your secrets
+cp .env.docker .env
+# Edit .env: set SECRET_KEY and GROQ_API_KEY
+
+# 2. Build and start both services
+docker compose up --build
+```
+
+> The Groq API key is set **only in `backend/.env`** — it never reaches the browser.
 
 ---
 

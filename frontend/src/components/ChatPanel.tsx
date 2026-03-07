@@ -115,56 +115,44 @@ export default function ChatPanel({ selectedFormId, onClose, onFormChange }: Cha
         setInput('');
         setIsTyping(true);
 
-        const groqKey = import.meta.env.VITE_GROQ_API_KEY as string;
-        const groqModel = (import.meta.env.VITE_GROQ_MODEL as string) || 'llama-3.3-70b-versatile';
-
         // Build KB context from the selected form's structured data
+        // (sent to backend as a fallback in case the backend KB file isn't loaded yet)
         const form = FORMS.find(f => f.id === selectedFormId);
         const kbContext = form
             ? `Form: ${form.name}\nDepartment: ${form.department}\nPurpose: ${form.purpose}\nProcessing Time: ${form.processingTime}\nSubmission: ${form.submissionLocation}\n\nRequired Documents:\n${form.requiredDocuments.map((d, i) => `${i + 1}. ${d}`).join('\n')}\n\nStep-by-Step Procedure:\n${form.procedure.map((s, i) => `Step ${i + 1}: ${s}`).join('\n')}\n\nCommon Rejection Reasons:\n${form.rejectionReasons.map(r => `- ${r.title}: ${r.detail}`).join('\n')}\n\nCritical Fields:\n${form.criticalFields.map(f => `- ${f.field}: ${f.warning}`).join('\n')}\n\nPractical Tips:\n${form.grievances.map(g => `Q: ${g.issue}\nTip: ${g.tip}`).join('\n')}\n\nTechnical Rules:\n${form.technicalRules.map((r, i) => `${i + 1}. ${r}`).join('\n')}`
             : '';
 
-        if (!groqKey || groqKey === 'your-groq-api-key-here') {
-            // Fallback: local keyword match
-            const { queryKnowledgeBase } = await import('../data/knowledgeBase');
-            const response = queryKnowledgeBase(selectedFormId, text);
-            setIsTyping(false);
-            addAssistantMessage(response);
-            return;
-        }
+        // Detect language from selected voice locale (e.g. 'te-IN' → 'te')
+        const lang = selectedLang.split('-')[0];
+
+        const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
 
         try {
-            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            const res = await fetch(`${apiBase}/ai/public-chat`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${groqKey}`,
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    model: groqModel,
-                    messages: [
-                        {
-                            role: 'system',
-                            content:
-                                `You are SevaSetu AI, a friendly and knowledgeable assistant helping Indian citizens with government form applications. Be concise, warm, and practical.\n\nYou are currently helping with the ${form?.name ?? 'selected form'}.\n\nIMPORTANT: Always use English/Western Arabic numerals (0-9) for all numbers, dates, fees, and measurements — even when replying in another language like Telugu, Hindi, or Tamil.\n\nUse ONLY the following knowledge base to answer questions. If the answer isn't in the KB, say so and suggest contacting the office.\n\n${kbContext}`,
-                        },
-                        { role: 'user', content: text },
-                    ],
-                    temperature: 0.4,
-                    max_tokens: 800,
+                    form_id: selectedFormId,
+                    query: text,
+                    language: lang,
+                    kb_context: kbContext,
                 }),
             });
 
-            if (!res.ok) throw new Error(`Groq API error: ${res.status}`);
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData?.detail ?? `Backend error ${res.status}`);
+            }
             const data = await res.json();
-            const answer = data.choices?.[0]?.message?.content?.trim() ?? 'Sorry, I could not generate a response.';
+            const answer = data.answer ?? 'Sorry, I could not generate a response.';
             setIsTyping(false);
             addAssistantMessage(answer);
         } catch (err) {
             setIsTyping(false);
-            addAssistantMessage(`⚠️ **Could not reach AI service.** Please check your VITE_GROQ_API_KEY in the frontend .env file.\n\nError: ${err instanceof Error ? err.message : String(err)}`);
+            addAssistantMessage(`⚠️ **Could not reach the AI backend.**\n\nMake sure the backend is running at \`${apiBase}\`.\n\nError: ${err instanceof Error ? err.message : String(err)}`);
         }
-    }, [input, selectedFormId, addAssistantMessage]);
+    }, [input, selectedFormId, selectedLang, addAssistantMessage]);
+
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }

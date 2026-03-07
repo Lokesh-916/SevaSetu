@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IconBot, IconZap, IconGlobe, IconShield, IconClock, IconArrowRight, IconMic, IconUpload, IconMenu, IconClose, IconStar, IconCheck } from '../components/Icons';
+import { IconBot, IconZap, IconGlobe, IconShield, IconArrowRight, IconMic, IconUpload } from '../components/Icons';
 import ThemeToggle from '../components/ThemeToggle';
 
 interface LandingPageProps {
@@ -11,7 +11,6 @@ interface LandingPageProps {
 // ─── Navbar ───────────────────────────────────────────────────────────────────
 function Navbar({ theme, onToggleTheme }: { theme: string; onToggleTheme: () => void }) {
     const [scrolled, setScrolled] = useState(false);
-    const [mobileOpen, setMobileOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
