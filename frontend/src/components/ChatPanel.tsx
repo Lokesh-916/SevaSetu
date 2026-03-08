@@ -125,7 +125,10 @@ export default function ChatPanel({ selectedFormId, onClose, onFormChange }: Cha
         // Detect language from selected voice locale (e.g. 'te-IN' → 'te')
         const lang = selectedLang.split('-')[0];
 
-        const apiBase = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+        const apiBase = import.meta.env.VITE_API_BASE_URL;
+        if (!apiBase) {
+            throw new Error('VITE_API_BASE_URL environment variable is not set');
+        }
 
         try {
             const res = await fetch(`${apiBase}/ai/public-chat`, {

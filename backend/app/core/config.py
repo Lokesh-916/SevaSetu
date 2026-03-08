@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: List[str] = [
         "http://localhost:3000",   # React dev server
         "http://127.0.0.1:3000",
+        # Note: Vercel deployments are handled via allow_origin_regex in main.py
     ]
 
     # ── Database (SQLite for local dev) ──────────────────────────────────────
@@ -49,9 +50,12 @@ class Settings(BaseSettings):
     LOG_LEVEL: str = "INFO"
     LOG_FORMAT: str = "json"  # json | text
 
-    # ── AI / LLM (Groq) ──────────────────────────────────────────────────────
-    GROQ_API_KEY: str = ""
-    GROQ_MODEL: str = "llama-3.3-70b-versatile"
+    # ── AI / LLM (AWS Bedrock) ───────────────────────────────────────────────
+    # Note: AWS credentials are NOT stored here. The application uses IAM roles
+    # when running on EC2. boto3 automatically discovers credentials from the
+    # EC2 instance metadata service.
+    AWS_REGION: str = "us-east-1"
+    BEDROCK_MODEL_ID: str = "anthropic.claude-3-5-sonnet-20241022-v2:0"
 
 
 @lru_cache

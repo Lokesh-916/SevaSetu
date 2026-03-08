@@ -1,11 +1,11 @@
 """
-AI Service – RAG + Groq LLM pipeline.
+AI Service – RAG + AWS Bedrock LLM pipeline.
 
 Flow for every /chat request:
   1. Receive user query
   2. Detect language (langdetect)
   3. Retrieve top-2 relevant KB chunks (sentence-transformers cosine similarity)
-  4. Send [system prompt + KB context + user query] to Groq LLM
+  4. Send [system prompt + KB context + user query] to AWS Bedrock LLM
   5. Return the LLM's answer, or escalate if confidence < threshold
 """
 
@@ -38,7 +38,7 @@ _KB_PATH = os.path.abspath(
 _KB_DOCS: List[str] = []
 _KB_EMBEDDINGS: "np.ndarray | None" = None
 _EMBED_MODEL = None          # sentence_transformers.SentenceTransformer
-_GROQ_CLIENT = None          # groq.Groq
+_BEDROCK_CLIENT = None       # boto3 bedrock-runtime client
 
 
 # ── Knowledge base helpers ────────────────────────────────────────────────────
@@ -66,8 +66,8 @@ def _cosine_similarity(a: "np.ndarray", b: "np.ndarray") -> "np.ndarray":
 
 
 def _ensure_models_loaded() -> None:
-    """Lazily load SentenceTransformer embedder and Groq client."""
-    global _KB_DOCS, _KB_EMBEDDINGS, _EMBED_MODEL, _GROQ_CLIENT
+    """Lazily load SentenceTransformer embedder and AWS Bedrock client."""
+    global _KB_DOCS, _KB_EMBEDDINGS, _EMBED_MODEL, _BEDROCK_CLIENT
 
     if os.environ.get("TESTING") == "1":
         return
@@ -91,21 +91,26 @@ def _ensure_models_loaded() -> None:
         except Exception as exc:
             logger.error("SentenceTransformer load failed: %s", exc)
 
-    # ── Groq client ───────────────────────────────────────────────────────────
-    if _GROQ_CLIENT is None:
-        if not settings.GROQ_API_KEY or settings.GROQ_API_KEY == "your-groq-api-key-here":
-            logger.warning(
-                "GROQ_API_KEY not set — AI will return raw KB context only."
+    # ── AWS Bedrock client ────────────────────────────────────────────────────
+    if _BEDROCK_CLIENT is None:
+        try:
+            import boto3
+            # No credentials passed - boto3 will automatically use IAM role
+            # from EC2 instance metadata service
+            _BEDROCK_CLIENT = boto3.client(
+                service_name="bedrock-runtime",
+                region_name=settings.AWS_REGION,
             )
-        else:
-            try:
-                from groq import Groq
-                _GROQ_CLIENT = Groq(api_key=settings.GROQ_API_KEY)
-                logger.info(
-                    "Groq client ready (model: %s).", settings.GROQ_MODEL
-                )
-            except Exception as exc:
-                logger.error("Groq client init failed: %s", exc)
+            logger.info(
+                "AWS Bedrock client ready (model: %s, region: %s). Using IAM role for authentication.",
+                settings.BEDROCK_MODEL_ID,
+                settings.AWS_REGION,
+            )
+        except Exception as exc:
+            logger.error("AWS Bedrock client init failed: %s", exc)
+            logger.warning(
+                "AI will return raw KB context only. Ensure EC2 instance has proper IAM role attached."
+            )
 
 
 def _retrieve(query: str, top_k: int = 2) -> str:
@@ -118,10 +123,10 @@ def _retrieve(query: str, top_k: int = 2) -> str:
     return "\n\n---\n\n".join(_KB_DOCS[i] for i in top_indices)
 
 
-def _call_groq(query: str, context: str, language: str) -> str:
-    """Send query + KB context to Groq and return the answer."""
-    if _GROQ_CLIENT is None:
-        # No API key — fall back to returning the raw KB excerpt
+def _call_bedrock(query: str, context: str, language: str) -> str:
+    """Send query + KB context to AWS Bedrock and return the answer."""
+    if _BEDROCK_CLIENT is None:
+        # No credentials — fall back to returning the raw KB excerpt
         return (
             f"Based on our knowledge base:\n\n{context}"
             if context
@@ -147,18 +152,32 @@ def _call_groq(query: str, context: str, language: str) -> str:
     )
 
     try:
-        response = _GROQ_CLIENT.chat.completions.create(
-            model=settings.GROQ_MODEL,
-            messages=[
-                {"role": "system", "content": system_prompt + lang_note},
-                {"role": "user", "content": query},
-            ],
-            temperature=0.3,
-            max_tokens=1024,
+        import json
+        
+        # Prepare the request body for Claude 3.5 Sonnet
+        request_body = {
+            "anthropic_version": "bedrock-2023-05-31",
+            "max_tokens": 1024,
+            "temperature": 0.3,
+            "system": system_prompt + lang_note,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": query
+                }
+            ]
+        }
+        
+        response = _BEDROCK_CLIENT.invoke_model(
+            modelId=settings.BEDROCK_MODEL_ID,
+            body=json.dumps(request_body)
         )
-        return response.choices[0].message.content.strip()
+        
+        response_body = json.loads(response['body'].read())
+        return response_body['content'][0]['text'].strip()
+        
     except Exception as exc:
-        logger.error("Groq API call failed: %s", exc)
+        logger.error("AWS Bedrock API call failed: %s", exc)
         raise HTTPException(
             status_code=502,
             detail=f"AI service temporarily unavailable: {exc}",
@@ -178,7 +197,7 @@ class AIService:
         simulate_confidence: float = 0.85,
     ) -> Dict[str, Any]:
         """
-        Full RAG + Groq LLM pipeline:
+        Full RAG + AWS Bedrock LLM pipeline:
           retrieve → generate → escalate if needed
         """
         # Lazy-load models on first call
@@ -230,8 +249,8 @@ class AIService:
                 "A human officer will review this shortly."
             )
         else:
-            # 6. Call Groq LLM with KB context
-            answer = _call_groq(query, context, detected_lang)
+            # 6. Call AWS Bedrock LLM with KB context
+            answer = _call_bedrock(query, context, detected_lang)
 
         return {
             "query": query,

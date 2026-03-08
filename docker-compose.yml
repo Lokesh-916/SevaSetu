@@ -9,8 +9,8 @@ services:
       ENVIRONMENT: production
       DATABASE_URL: sqlite+aiosqlite:////app/data/sevasetu.db
       SECRET_KEY: ${SECRET_KEY}
-      GROQ_API_KEY: ${GROQ_API_KEY}
-      GROQ_MODEL: ${GROQ_MODEL:-llama-3.3-70b-versatile}
+      AWS_REGION: ${AWS_REGION:-us-east-1}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-anthropic.claude-3-5-sonnet-20241022-v2:0}
       LOG_LEVEL: INFO
       LOG_FORMAT: json
     volumes:
@@ -20,15 +20,15 @@ services:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 20s
+      retries: 5
+      start_period: 360s  # 6 minutes for EasyOCR model downloads
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
       args:
-        VITE_API_BASE_URL: http://backend:8000/api/v1
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
     ports:
       - "3000:80"
     depends_on:
