@@ -5,7 +5,7 @@ All sub-routers are registered here and then mounted on the FastAPI app.
 
 from fastapi import APIRouter
 
-from app.api import auth, health, forms, test_workflow, documents, ai, rules
+from app.api import auth, health, forms, documents, ai, rules
 
 api_router = APIRouter()
 
@@ -17,9 +17,6 @@ api_router.include_router(auth.router)
 
 # ── Form Management (Task 3) ──────────────────────────────────────────────────
 api_router.include_router(forms.router)
-
-# ── Manual Testing (Task 4) ───────────────────────────────────────────────────
-api_router.include_router(test_workflow.router)
 
 # ── Document & AI (Tasks 5 & 6) ───────────────────────────────────────────────
 api_router.include_router(documents.router)

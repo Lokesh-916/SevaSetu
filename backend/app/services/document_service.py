@@ -62,16 +62,32 @@ except ImportError:
         return data
 
 
-# EasyOCR (optional)
+# EasyOCR (optional, lazy-loaded)
 _ocr_reader: Optional[object] = None
-if os.environ.get("TESTING") != "1":
-    try:
-        import easyocr  # noqa: F401
+_ocr_initialized = False
 
+
+def _get_ocr_reader():
+    """Lazy-load EasyOCR reader on first use."""
+    global _ocr_reader, _ocr_initialized
+    
+    if _ocr_initialized:
+        return _ocr_reader
+    
+    _ocr_initialized = True
+    
+    if os.environ.get("TESTING") == "1":
+        return None
+    
+    try:
+        import easyocr
+        logger.info("Loading EasyOCR reader (this may take a few minutes on first run)...")
         _ocr_reader = easyocr.Reader(["en", "hi"])
-        logger.info("EasyOCR reader loaded.")
+        logger.info("EasyOCR reader loaded successfully.")
+        return _ocr_reader
     except Exception as exc:
         logger.warning("EasyOCR not available: %s", exc)
+        return None
 
 
 # ── Custom exception ──────────────────────────────────────────────────────────
@@ -124,12 +140,13 @@ class DocumentService:
 
         # 5. OCR extraction
         extracted_text = ""
-        if _ocr_reader and mime_type in ("image/jpeg", "image/png"):
+        ocr_reader = _get_ocr_reader()
+        if ocr_reader and mime_type in ("image/jpeg", "image/png"):
             try:
                 tmp_path = file_path + ".tmp"
                 with open(tmp_path, "wb") as fh:
                     fh.write(contents)
-                result = _ocr_reader.readtext(tmp_path, detail=0)  # type: ignore
+                result = ocr_reader.readtext(tmp_path, detail=0)  # type: ignore
                 extracted_text = " ".join(result)
                 os.remove(tmp_path)
             except Exception as exc:
